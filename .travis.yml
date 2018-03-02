@@ -1,7 +1,7 @@
 env:
   global:
     - CC_TEST_REPORTER_ID=5fc08de7c1a799fc74fd1ab3dbebd9d7dbff31d75a05d86a159268747dbaf071
-
+    secure: PRMOwZK31WfkDWA9QoMYYnY++SCUBwJRcXv2jMVp2ky/zPM/XCX4h8MNOiMfhLrqFachn7axDJL/yceXxEX/95KyXwdfUiCHcnDCA+nkFhd7l/sHVOuVuC/OOWJhkcvHSbmpsZ1T9uAKAOsDa5j2qsESN9/aS/Tx4059enq+rP6KH+2sMyTkYLCf497uKZZbf2uJYe/ttv+YeD4sQJS2Jqf3AKTeZ6K3RVBlgaIAOoGdGOv6d0Tfm/RMd9Dd6zRaeddXpDFEnstMlUCJu70XI+oglL5AD3noK3MRRCLfC6doS9hC/Twd60TsqFYMxHIclJKllhZEi60htWkkeppwYuSZMKhRg1wbOaPl0I/bhVFwZdTSyXjH1R2K7h6P7TwiDNUMcy+BUO95FfT7XfFspmZhS3tzjzry55QOc6ivhzGw/sS/TJpjuiIeGfOm5I6mNwyNCJCMSRo9i6JWIX52Lou0GwHgMrOUU1lZJS/OSqeQ4G6auaMs22c3/IDGrPoxSO+hIl1Kt24jloDOLAXQMugRbh1OM4z7O+kPgge4a7IK8UsgUs3XHAE1oPIRP15uhTVVbc57ZbG0kOHRoYNuI4Snyd4eOE3cGzCxoqJtyDJsTT/sO+uvzw4G535jX2XprTc17Rz1m7Bn4LmK3r6uguDzylkKbDahLigikCJZ4/A=
 language: java
 jdk: oraclejdk8
 dist: trusty
@@ -14,7 +14,7 @@ addons:
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
-  - "./cc-test-reporter before-build"
+  - ./cc-test-reporter before-build
 script:
   - ./gradlew sonarqube
 cache:
@@ -28,8 +28,7 @@ before_deploy:
   - sudo unzip terraform.zip -d /opt/terraform
   - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   - rm -f terraform.zip
-# - ./cc-test-reporter format-coverage -d -t jacoco /home/travis/build/lapots/judge-rule-engine/build/reports/jacoco/test/jacocoTestReport.xml
-# - ./cc-test-reporter upload-coverage -d
+  - ./cc-test-reporter after-build
 deploy:
   - provider: script
     skip_cleanup: true
@@ -37,6 +36,4 @@ deploy:
     on:
       repo: lapots/judge-rule-engine
       branch: master
-env:
-  global:
-    secure: PRMOwZK31WfkDWA9QoMYYnY++SCUBwJRcXv2jMVp2ky/zPM/XCX4h8MNOiMfhLrqFachn7axDJL/yceXxEX/95KyXwdfUiCHcnDCA+nkFhd7l/sHVOuVuC/OOWJhkcvHSbmpsZ1T9uAKAOsDa5j2qsESN9/aS/Tx4059enq+rP6KH+2sMyTkYLCf497uKZZbf2uJYe/ttv+YeD4sQJS2Jqf3AKTeZ6K3RVBlgaIAOoGdGOv6d0Tfm/RMd9Dd6zRaeddXpDFEnstMlUCJu70XI+oglL5AD3noK3MRRCLfC6doS9hC/Twd60TsqFYMxHIclJKllhZEi60htWkkeppwYuSZMKhRg1wbOaPl0I/bhVFwZdTSyXjH1R2K7h6P7TwiDNUMcy+BUO95FfT7XfFspmZhS3tzjzry55QOc6ivhzGw/sS/TJpjuiIeGfOm5I6mNwyNCJCMSRo9i6JWIX52Lou0GwHgMrOUU1lZJS/OSqeQ4G6auaMs22c3/IDGrPoxSO+hIl1Kt24jloDOLAXQMugRbh1OM4z7O+kPgge4a7IK8UsgUs3XHAE1oPIRP15uhTVVbc57ZbG0kOHRoYNuI4Snyd4eOE3cGzCxoqJtyDJsTT/sO+uvzw4G535jX2XprTc17Rz1m7Bn4LmK3r6uguDzylkKbDahLigikCJZ4/A=
+    
