@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=5fc08de7c1a799fc74fd1ab3dbebd9d7dbff31d75a05d86a159268747dbaf071
+
 language: java
 jdk: oraclejdk8
 dist: trusty
